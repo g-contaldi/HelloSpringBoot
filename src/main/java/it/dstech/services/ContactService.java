@@ -1,4 +1,4 @@
-package it.dstech.service;
+package it.dstech.services;
 
 import java.util.List;
 

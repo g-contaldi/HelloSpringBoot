@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.dstech.model.Contact;
-import it.dstech.service.ContactService;
+import it.dstech.services.ContactService;
 
 @RestController
 @RequestMapping("/contact")
