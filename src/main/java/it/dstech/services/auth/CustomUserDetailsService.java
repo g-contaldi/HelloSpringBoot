@@ -38,11 +38,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 				true, true, true, getGrantedAuthorities(user));
 	}
 
-	private List<GrantedAuthority> getGrantedAuthorities(User user) {
+	private List<GrantedAuthority> getGrantedAuthorities(User user) {		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
 		authorities.add(new SimpleGrantedAuthority("" + user.getProfileType()));
-
 		logger.info("Authorities: " + authorities);
 		return authorities;
 	}
