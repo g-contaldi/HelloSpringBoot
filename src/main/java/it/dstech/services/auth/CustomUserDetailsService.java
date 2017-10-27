@@ -2,8 +2,9 @@ package it.dstech.services.auth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +20,7 @@ import it.dstech.services.UserService;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private static final Logger logger = Logger.getLogger(CustomUserDetailsService.class.getName());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private UserService userService;
