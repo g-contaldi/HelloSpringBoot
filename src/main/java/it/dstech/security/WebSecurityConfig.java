@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -33,10 +34,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers("/login", "/register", "/getUserModel").permitAll()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().antMatchers("/contact/**")
-				.hasAnyRole("USER", "ADMIN", "DBA").anyRequest().authenticated().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll().and().csrf().disable();
+		http.httpBasic().and().authorizeRequests()
+				.antMatchers("/login", "/register", "/getUserModel").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.antMatchers("/contact/**").hasAnyRole("USER", "ADMIN", "DBA").anyRequest().authenticated()
+				.and().logout().permitAll()
+				.and().logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+				.and().csrf().disable();
 	}
 
 	@Bean
