@@ -1,8 +1,13 @@
 package it.dstech.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Contact {
@@ -18,6 +23,11 @@ public class Contact {
 	private String tel;
 
 	private String mail;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public int getId() {
 		return id;
@@ -57,6 +67,14 @@ public class Contact {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

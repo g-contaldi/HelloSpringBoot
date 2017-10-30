@@ -1,5 +1,7 @@
 package it.dstech.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,19 @@ public class ContactController {
 		String username = userLogged.getUsername();
 		User user = userService.findByUsername(username);
 		logger.info("User: " + user);
+		contact.setUser(user);
 		logger.info("Contact saved or updated.");
 		return contactService.saveOrUpdateContact(contact);
+	}
+
+	@GetMapping("/getListByUser")
+	public List<Contact> getListContactByUser() {
+		org.springframework.security.core.userdetails.User userLogged = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		String username = userLogged.getUsername();
+		User user = userService.findByUsername(username);
+		logger.info("List Contact by User.");
+		return contactService.listContactByUser(user.getId());
 	}
 
 	@GetMapping("/getById/{id}")

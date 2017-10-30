@@ -25,8 +25,8 @@ public class ContactServcieImpl implements ContactService {
 	}
 
 	@Override
-	public List<Contact> listContact() {
-		return (List<Contact>) contactRepo.findAll();
+	public List<Contact> listContactByUser(int userId) {
+		return (List<Contact>) contactRepo.findByUser_Id(userId);
 	}
 
 	@Override

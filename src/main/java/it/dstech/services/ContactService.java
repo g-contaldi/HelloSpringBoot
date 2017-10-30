@@ -10,7 +10,7 @@ public interface ContactService {
 
 	Contact findOne(int id);
 
-	List<Contact> listContact();
+	List<Contact> listContactByUser(int userId);
 
 	void deleteContact(int id);
 
